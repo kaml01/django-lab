@@ -3,15 +3,20 @@ os: linux
 
 files:
   - source: /
-    destination: /var/www/student-api
+    destination: /home/ec2-user/django-app
 
 hooks:
+  ApplicationStop:
+    - location: scripts/stop.sh
+      timeout: 300
+      runas: ec2-user
+
   BeforeInstall:
     - location: scripts/install.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
 
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
